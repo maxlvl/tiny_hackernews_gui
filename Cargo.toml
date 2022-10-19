@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+	"tiny_hackernews",
+	"hackernews_api"
+]
