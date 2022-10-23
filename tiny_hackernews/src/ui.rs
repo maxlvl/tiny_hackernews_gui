@@ -3,7 +3,7 @@ use eframe::egui::{
 };
 use std::borrow::Cow;
 
-const PADDING: f32 = 5.0;
+pub const PADDING: f32 = 5.0;
 const WHITE: Color32 = Color32::from_rgb(255, 255, 255);
 const CYAN: Color32 = Color32::from_rgb(0, 255, 255);
 
