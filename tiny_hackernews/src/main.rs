@@ -1,7 +1,9 @@
 mod ui;
 
 use eframe::{
-    egui::{CentralPanel, ScrollArea, Separator, Ui, Vec2},
+    egui::{
+        CentralPanel, CtxRef, Hyperlink, ScrollArea, Separator, TextStyle, TopBottomPanel, Ui, Vec2,
+    },
     epi::App,
     run_native, NativeOptions,
 };
@@ -17,9 +19,11 @@ impl App for ui::TinyHackernews {
     }
 
     fn update(&mut self, ctx: &eframe::egui::CtxRef, _frame: &mut eframe::epi::Frame<'_>) {
+        self.render_top_panel();
         CentralPanel::default().show(ctx, |ui| {
             render_header(ui);
-            ScrollArea::auto_sized().show(ui, |ui| self.render_cards(ui))
+            ScrollArea::auto_sized().show(ui, |ui| self.render_cards(ui));
+            render_footer(ctx);
         });
     }
 
@@ -38,10 +42,24 @@ fn render_header(ui: &mut Ui) {
     ui.add(sep);
 }
 
-// fn render_footer()_{
-// pass
-
-// }
+fn render_footer(ctx: &CtxRef) {
+    TopBottomPanel::bottom("footer").show(ctx, |ui| {
+        ui.vertical_centered(|ui| {
+            ui.add_space(10.);
+            ui.add(
+                Hyperlink::new("http://api.hackerwebapp.com/news")
+                    .text("API Source")
+                    .text_style(TextStyle::Monospace),
+            );
+            ui.add(
+                Hyperlink::new("https://github.com/emilk/egui")
+                    .text("Made with egui")
+                    .text_style(TextStyle::Monospace),
+            );
+            ui.add_space(10.);
+        })
+    });
+}
 
 fn main() {
     let app = ui::TinyHackernews::new();

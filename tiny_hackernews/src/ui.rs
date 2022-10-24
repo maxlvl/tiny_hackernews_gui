@@ -82,4 +82,10 @@ impl TinyHackernews {
             ui.add(Separator::default());
         }
     }
+    pub fn render_top_panel(&self) {
+        // Define a topBottomPanel widget
+        // add a menu bar
+        // two layout widgets
+        // render logo on the left
+    }
 }
