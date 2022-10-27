@@ -19,7 +19,7 @@ impl App for ui::TinyHackernews {
     }
 
     fn update(&mut self, ctx: &eframe::egui::CtxRef, _frame: &mut eframe::epi::Frame<'_>) {
-        self.render_top_panel();
+        self.render_top_panel(ctx);
         CentralPanel::default().show(ctx, |ui| {
             render_header(ui);
             ScrollArea::auto_sized().show(ui, |ui| self.render_cards(ui));

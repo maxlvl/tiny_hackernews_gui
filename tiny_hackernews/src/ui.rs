@@ -1,5 +1,6 @@
 use eframe::egui::{
-    Color32, CtxRef, FontDefinitions, FontFamily, Hyperlink, Label, Layout, Separator, TextStyle,
+    self, Button, Color32, CtxRef, FontDefinitions, FontFamily, Hyperlink, Label, Layout,
+    Separator, TextStyle, TopBottomPanel,
 };
 use std::borrow::Cow;
 
@@ -82,10 +83,22 @@ impl TinyHackernews {
             ui.add(Separator::default());
         }
     }
-    pub fn render_top_panel(&self) {
-        // Define a topBottomPanel widget
-        // add a menu bar
-        // two layout widgets
-        // render logo on the left
+    pub fn render_top_panel(&self, ctx: &CtxRef) {
+        TopBottomPanel::top("top_panel").show(ctx, |ui| {
+            ui.add_space(10.);
+            egui::menu::bar(ui, |ui| {
+                // logo
+                ui.with_layout(Layout::left_to_right(), |ui| {
+                    ui.add(Label::new("📒").text_style(egui::TextStyle::Heading));
+                });
+                // controls
+                ui.with_layout(Layout::right_to_left(), |ui| {
+                    let close_btn = ui.add(Button::new("❌").text_style(egui::TextStyle::Body));
+                    let refresh_btn = ui.add(Button::new("🔄").text_style(egui::TextStyle::Body));
+                    let theme_btn = ui.add(Button::new("🌙").text_style(egui::TextStyle::Body));
+                });
+            });
+            ui.add_space(10.);
+        });
     }
 }
