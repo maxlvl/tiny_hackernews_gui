@@ -14,10 +14,10 @@ pub enum NewsApiError {
 #[derive(Serialize, Deserialize)]
 pub struct Article {
     id: u32,
-    title: String,
+    pub title: String,
     time_ago: String,
     comments_count: u16,
-    url: String,
+    pub url: String,
 }
 
 pub fn get_articles(url: &str) -> Result<Vec<Article>, NewsApiError> {

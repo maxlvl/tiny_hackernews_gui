@@ -8,6 +8,22 @@ use eframe::{
     run_native, NativeOptions,
 };
 
+use hackernews_api;
+use ui::NewsCardData;
+
+pub fn fetch_news(articles: &mut Vec<NewsCardData>) {
+    if let Ok(response) = hackernews_api::get_articles("http://api.hackerwebapp.com/news") {
+        let resp_articles = response;
+        for a in resp_articles.iter() {
+            let news = ui::NewsCardData {
+                title: a.title.to_string(),
+                url: a.url.to_string(),
+            };
+            articles.push(news);
+        }
+    }
+}
+
 impl App for ui::TinyHackernews {
     fn setup(
         &mut self,
@@ -15,6 +31,7 @@ impl App for ui::TinyHackernews {
         _frame: &mut eframe::epi::Frame<'_>,
         _storage: Option<&dyn eframe::epi::Storage>,
     ) {
+        fetch_news(&mut self.articles);
         self.configure_fonts(ctx);
     }
 

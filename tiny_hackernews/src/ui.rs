@@ -8,27 +8,18 @@ pub const PADDING: f32 = 5.0;
 const WHITE: Color32 = Color32::from_rgb(255, 255, 255);
 const CYAN: Color32 = Color32::from_rgb(0, 255, 255);
 
-struct NewsCardData {
-    title: String,
-    description: String,
-    url: String,
+pub struct NewsCardData {
+    pub title: String,
+    pub url: String,
 }
 
 pub(crate) struct TinyHackernews {
-    articles: Vec<NewsCardData>,
+    pub articles: Vec<NewsCardData>,
 }
 
 impl TinyHackernews {
     pub fn new() -> TinyHackernews {
-        let iter = (0..20).map(|a| NewsCardData {
-            title: format!("title {}", a),
-            description: format!("description {}", a),
-            url: format!("http://example.com/{}", a),
-        });
-
-        TinyHackernews {
-            articles: Vec::from_iter(iter),
-        }
+        TinyHackernews { articles: vec![] }
     }
 
     pub fn configure_fonts(&self, ctx: &CtxRef) {
@@ -65,12 +56,6 @@ impl TinyHackernews {
             // render title
             let title = format!("{}", a.title);
             ui.colored_label(WHITE, title);
-
-            // render desc
-            ui.add_space(PADDING);
-            let description =
-                Label::new(&a.description).text_style(eframe::egui::TextStyle::Button);
-            ui.add(description);
 
             // render url
             ui.style_mut().visuals.hyperlink_color = CYAN;
